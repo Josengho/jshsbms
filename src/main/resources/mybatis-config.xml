@@ -13,7 +13,8 @@
 		<typeAlias type="com.bms.goods.dto.ImageFileDto" alias="ImageFileDto" />
 		<typeAlias type="com.bms.member.dto.MemberDto"   alias="MemberDto" />
 		<typeAlias type="com.bms.order.dto.OrderDto"     alias="OrderDto" />
-		<typeAlias type="com.bms.mypage.dto.MyPageDto"   alias="MypageDto" />    
+		<typeAlias type="com.bms.mypage.dto.MyPageDto"   alias="MypageDto" />  
+		<typeAlias type="com.bms.admin.notice.dto.NoticeDto"   alias="NoticeDto" />
 	</typeAliases>
 	
 </configuration>

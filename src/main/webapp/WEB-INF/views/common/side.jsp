@@ -53,7 +53,7 @@
 	<div id="notice">
 		<h2>공지사항</h2>
 		<ul>
-			<li><a href="#">BMS 개인정보 처리방침 개정 안내</a></li>
+			<li><a href="${contextPath}/admin/notice/main.do">BMS 개인정보 처리방침 개정 안내</a></li>
 			<li><a href="#">BMS mobile 서비스 종료 안내 </a></li>
 			<li><a href="#">마케팅정보 수신동의 확인 안내</a></li>
 			<li><a href="#">북클럽 혜택 '커피 무료쿠폰' 종료 안내</a></li>
