@@ -22,8 +22,8 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
-	@RequestMapping(value="/addNotice.do" , method = RequestMethod.POST)
-	public ResponseEntity<String> addNotice(NoticeDto noticeDto , HttpServletRequest request) throws Exception {
+	@RequestMapping(value="/addNoticeForm.do" , method = RequestMethod.POST)
+	public ResponseEntity<String> addNoticeForm(NoticeDto noticeDto , HttpServletRequest request) throws Exception {
 		
 		// 관리자 페이지에서만 추가 버튼을 만들어 놓을 것이기 때문에 굳이 비밀번호를 넣을 필요가 없음.
 		noticeService.addNotice(noticeDto);
@@ -39,6 +39,14 @@ public class NoticeController {
 	    return new ResponseEntity<String>(message, responseHeaders, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/addNoticeForm.do" , method = RequestMethod.GET)
+	public String addNoticeForm() throws Exception {
+		return "/admin/notice/addNoticeForm";
+	}
+	
+
+	
+	// boardList 만들고 뷰로 보내기
 	@RequestMapping(value="/main.do" , method = RequestMethod.GET)
 	public String noticeList(Model model) throws Exception {
 		
@@ -46,6 +54,5 @@ public class NoticeController {
 		
 		
 		return "/admin/notice/main";
-		// return "/main/main";
 	}
 }
