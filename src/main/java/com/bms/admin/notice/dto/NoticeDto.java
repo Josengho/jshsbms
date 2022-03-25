@@ -10,7 +10,9 @@ public class NoticeDto {
 	private int    noticeId;
 	private String noticeTitle;
 	private String noticeContent;
-	private Date   writeTime;
+	private String noticeWriter;
+	private Date   writeDate;
+	private int vCount;
 	
 	public int getNoticeId() {
 		return noticeId;
@@ -30,11 +32,23 @@ public class NoticeDto {
 	public void setNoticeContent(String noticeContent) {
 		this.noticeContent = noticeContent;
 	}
-	public Date getWriteTime() {
-		return writeTime;
+	public String getNoticeWriter() {
+		return noticeWriter;
 	}
-	public void setWriteTime(Date writeDate) {
-		this.writeTime = writeDate;
+	public void setNoticeWriter(String noticeWriter) {
+		this.noticeWriter = noticeWriter;
+	}
+	public Date getWriteDate() {
+		return writeDate;
+	}
+	public void setWriteDate(Date writeDate) {
+		this.writeDate = writeDate;
+	}
+	public int getvCount() {
+		return vCount;
+	}
+	public void setvCount(int vCount) {
+		this.vCount = vCount;
 	}
 	
 	

@@ -4,26 +4,15 @@
 <mapper namespace="mapper.admin.notice">
 	
   <insert id="insertNewNotice" parameterType="noticeDTO">
-  		<selectKey resultType="int" keyProperty="noticeId" order="BEFORE">
-	    	SELECT 
-	    			SEQ_NOTICE_ID.NEXTVAL 
-	    	FROM 
-	    			DUAL
-	    </selectKey>
 	  <![CDATA[
-	    	INSERT INTO T_SHOPPING_NOTICE (
-	    			NOTICE_ID,
-	    			NOTICE_TITLE,
-	    			NOTICE_CONTENT,
-	    			WRITE_TIME
-	    			)
-	    	VALUES(
+	    	INSERT INTO T_SHOPPING_NOTICE VALUES(
 					#{noticeId},
 					#{noticeTitle},
 	             	#{noticeContent},
-	                SYSDATE
+	               	#{noticeWriter},
+	                SYSDATE,
+	                #{vCount}
 	        )
-			
 	   ]]>      
   </insert>
   <select id="selectNoticeList" resultType="noticeDto">
