@@ -17,10 +17,10 @@
 	    <th>글쓴이</th>
 	    <th>작성 날짜</th>
 	  </tr>
-	  <c:forEach items="${noticeList}" var="noticeList">
+	  <c:forEach items="${noticeList}" var="noticeList" varStatus="num">
 		  <tr>
-		    <td><c:out value="${noticeList.noticeId}" /></td>
-		    <td><c:out value="${noticeList.noticeTitle}" /></td>
+		    <td>${num.count}</td>
+		    <td><a href="${contextPath}/admin/notice/selectNoticeOne.do?noticeId=${noticeList.noticeId}"><c:out value="${noticeList.noticeTitle}" /></a></td>
 		    <td><c:out value="관리자" /></td>
 		    <td><fmt:formatDate value="${noticeList.writeTime }" pattern="yyyy-MM-dd"/></td>
 		  </tr>

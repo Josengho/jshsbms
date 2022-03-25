@@ -25,5 +25,19 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<NoticeDto> selectNoticeList() throws Exception{
 		return noticeDao.noticeList();
 	}
+	
+	@Override
+	public NoticeDto selectNoticeOne(int noticeId) throws Exception{
+		return noticeDao.selectNotice(noticeId);
+	}
+	
+	@Override
+	public void updateNotice(NoticeDto noticeDTO) throws Exception{
+		noticeDao.updateNotice(noticeDTO);
+	}
 
+	@Override
+	public void deleteNotice(int noticeId) throws Exception{
+		noticeDao.deleteNotice(noticeId);
+	}
 }

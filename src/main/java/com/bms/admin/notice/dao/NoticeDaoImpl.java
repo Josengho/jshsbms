@@ -24,5 +24,20 @@ public class NoticeDaoImpl implements NoticeDao {
 		return sqlSession.selectList("mapper.admin.notice.selectNoticeList");
 		
 	}
+	
+	@Override
+	public NoticeDto selectNotice(int noticeId) throws Exception{
+		return sqlSession.selectOne("mapper.admin.notice.selectNoticeOne" , noticeId);
+		
+	}
 
+	@Override
+	public void updateNotice(NoticeDto noticeDto) throws Exception{
+		sqlSession.update("mapper.admin.notice.updateNotice" , noticeDto);
+	}
+	
+	@Override
+	public void deleteNotice(int noticeId) throws Exception{
+		sqlSession.delete("mapper.admin.notice.deleteNotice" , noticeId);
+	}
 }
