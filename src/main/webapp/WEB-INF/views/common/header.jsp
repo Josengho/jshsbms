@@ -6,6 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		var userid = $("#loginId").val();
+		
+		$('a[href="#"]').click(function(event) {
+			event.preventDefault();
+			location.assign("${contextPath}/cart/cartMain.do/" + userid);			
+		});
+	});
+
+</script>
 </head>
 <body>
 	<div id="logo">
@@ -24,6 +36,7 @@
 			     <c:when test="${isLogOn == true and not empty memberInfo }">
 				   <li><a href="${contextPath}/member/logout.do">로그아웃</a></li>
 				   <li><a href="${contextPath}/mypage/myPageMain.do">마이페이지</a></li>
+				   <li><a id="myCart" href="#">장바구니</a></li>
 				 </c:when>
 				 <c:otherwise>
 				   <li><a href="${contextPath}/member/loginForm.do">로그인</a></li>
@@ -42,3 +55,4 @@
 
 </body>
 </html>
+<input type="hidden" id="loginId" value="${memberInfo.memberId}"/>

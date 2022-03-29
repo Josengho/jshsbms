@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.cart">
+
+  <insert id="addGoodsInCart" parameterType="cartDto">
+  		<selectKey resultType="int" keyProperty="cartId" order="BEFORE">
+	    	SELECT 
+	    			SEQ_CART_ID.NEXTVAL 
+	    	FROM 
+	    			DUAL
+	    </selectKey>
+	  <![CDATA[
+	    	INSERT INTO T_SHOPPING_CART (
+	    			MEMBER_ID,
+	    			GOODS_ID,
+	    			CART_ID,
+	    			CART_QTY,
+	    			REG_DATE
+	    			)
+	    	VALUES(
+					#{memberId},
+					#{goodsId},
+	             	#{cartId},
+	             	#{cartQty},
+	                SYSDATE
+	        )
+			
+	   ]]>      
+  </insert>
+  
+  <select id="goodsIdList" resultType="CartDto">
+	SELECT 
+			*
+	FROM
+			T_SHOPPING_CART 
+	WHERE
+			MEMBER_ID = #{memberId}
+  </select>
+  
+  <select id="goodsInfoList" resultType="goodsDto">
+		SELECT 
+				*
+		FROM
+				T_SHOPPING_GOODS
+		WHERE
+				GOODS_ID IN
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item.goodsId}
+		</foreach>
+		ORDER BY GOODS_CREDATE DESC
+  </select>
+	
+</mapper>

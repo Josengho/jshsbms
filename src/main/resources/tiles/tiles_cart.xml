@@ -13,9 +13,9 @@
 		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
 	</definition>
     
-	<definition name="/cart/*" extends="baseLayout">
+	<definition name="/admin/notice/*" extends="baseLayout">
 		<put-attribute name="title" value="Book Management System 1.0" />
-		<put-attribute name="body" value="/WEB-INF/views/cart/{1}.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/notice/{1}.jsp" />
 	</definition>
     
 </tiles-definitions>

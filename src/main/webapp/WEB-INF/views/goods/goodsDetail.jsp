@@ -9,6 +9,34 @@
 <html>
 <head>
 <script>
+
+	function fn_reserve_each_goods(goodsId){
+		
+		var cartQty = document.getElementById("orderGoodsQty");
+		var isLogOn = document.getElementById("isLogOn").value;
+		
+		if (isLogOn == "" || isLogOn == "false") {
+			alert("로그인 후 주문이 가능합니다.");
+			location.href = "${contextPath}/member/loginForm.do";
+			return;
+		}
+		
+		var formObj	               = document.createElement("form");
+		var i_goods_id             = document.createElement("input"); 
+		var i_cart_qty    			= document.createElement("input");
+		
+	    i_goods_id.name          	= "goodsId";
+	    i_cart_qty.name   			= "cartQty";
+	    i_goods_id.value         	 = goodsId;
+	    i_cart_qty.value  	 		= cartQty.value;
+	    formObj.appendChild(i_goods_id);
+	    formObj.appendChild(i_cart_qty);
+	    
+	    document.body.appendChild(formObj); 
+	    formObj.method = "post";
+	    formObj.action = "${contextPath}/cart/addGoodsInCart.do";
+	    formObj.submit();
+	}
 	
 	function fn_order_each_goods(goodsId , goodsTitle , goodsSalesPrice , fileName , goodsDeliveryPrice){
 	
@@ -21,6 +49,7 @@
 			return;
 		} 
 	
+		// document.createElement는 노드를 만드는 것임.
 		var formObj	               = document.createElement("form");
 		var i_goods_id             = document.createElement("input"); 
 	    var i_goods_title          = document.createElement("input");
@@ -29,6 +58,7 @@
 	    var i_fileName             = document.createElement("input");
 	    var i_order_goods_qty      = document.createElement("input");
 	    
+	    // var i_goods_id = document.createElement("input") 이렇게 만들어진 노드에 "goodsId"라는 이름을 부여해줌
 	    i_goods_id.name          	= "goodsId";
 	    i_goods_title.name       	= "goodsTitle";
 	    i_goods_sales_price.name 	= "goodsSalesPrice";
@@ -36,6 +66,7 @@
 	    i_order_goods_qty.name   	= "orderGoodsQty";
 	    i_goods_delivery_price.name = "goodsDeliveryPrice";
 	    
+		 // 위와 마찬가지로 var i_goods_id = document.createElement("input") 이렇게 만들어진 노드에 goodsId라는 값을 부여함.
 	    i_goods_id.value         	 = goodsId;
 	    i_order_goods_qty.value  	 = orderGoodsQty.value;
 	    i_goods_title.value       	 = goodsTitle;
@@ -43,6 +74,7 @@
 	    i_fileName.value             = fileName;
 	    i_goods_delivery_price.value = goodsDeliveryPrice;
 	    
+	    // var formObj = document.createElement("form") ==> formObj라는 form에 밑의 값을 넣어줌
 	    formObj.appendChild(i_goods_id);
 	    formObj.appendChild(i_goods_title);
 	    formObj.appendChild(i_goods_sales_price);
@@ -50,6 +82,7 @@
 	    formObj.appendChild(i_order_goods_qty);
 	    formObj.appendChild(i_goods_delivery_price);
 	
+	    // html body에 formObj를 추가해서 넣어줌. method = "post",   action = "${contextPath}/order/orderEachGoods.do", submit()
 	    document.body.appendChild(formObj); 
 	    formObj.method = "post";
 	    formObj.action = "${contextPath}/order/orderEachGoods.do";
@@ -140,6 +173,7 @@
 		</table>
 		<ul>
 			<li><a class="buy" href="javascript:fn_order_each_goods('${goods.goodsId}','${goods.goodsTitle}','${goods.goodsSalesPrice}','${goods.goodsFileName}' , '${goods.goodsDeliveryPrice}')">구매하기 </a></li>
+			<li><a class="buy" href="javascript:fn_reserve_each_goods('${goods.goodsId}')">장바구니에 넣기 </a></li>
 		</ul>
 	</div>
 	<div class="clear"></div>
