@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bms.cart.dao.CartDao;
 import com.bms.cart.dto.CartDto;
 import com.bms.goods.dto.GoodsDto;
+import com.bms.goods.dto.ImageFileDto;
 
 
 @Service
@@ -38,11 +39,25 @@ public class CartServiceImpl implements CartService {
 		return cartMap;
 	}
 	
+	
 	@Override
-	public void addGoodsInCart(CartDto cartDto) throws Exception{
+	public boolean addGoodsInCart(CartDto cartDto) throws Exception{
 		
-		cartDao.addGoodsInCart(cartDto);
+		boolean goodsChk = false;
+		
+		if(cartDao.overlapGoodsChk(cartDto)) {
+			cartDao.addGoodsInCart(cartDto);
+			goodsChk = true;
+		} 
+		return goodsChk;
+		
 	}
 
+	@Override
+	public void deleteCartGoods(int goodsId) throws Exception{
+		
+		cartDao.deleteCartGoods(goodsId);
+		
+	}
 
 }

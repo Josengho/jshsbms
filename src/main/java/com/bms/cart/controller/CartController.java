@@ -13,9 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bms.cart.dto.CartDto;
@@ -52,19 +55,35 @@ public class CartController {
 		
 		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
 		goodsInfo.put("memberId", memberInfo.getMemberId());
+		String message;
 		
 		CartDto cDto = mapper.convertValue(goodsInfo ,CartDto.class);
-		cartService.addGoodsInCart(cDto);
+		if(cartService.addGoodsInCart(cDto)) {
+			   message  = "<script>";
+			   message += " alert('상품을 담았습니다.');";
+			   message += " location.href='" + request.getContextPath() + "/main/main.do';";
+			   message += " </script>";
+		} else {
+			   message  = "<script>";
+			   message += " alert('이미 등록된 상품입니다.');";
+			   message += " location.href='" + request.getContextPath() + "/main/main.do';";
+			   message += " </script>";
+		}
 
-		String message  = "<script>";
-		   message += " alert('상품을 담았습니다.');";
-		   message += " location.href='" + request.getContextPath() + "/main/main.do';";
-		   message += " </script>";
- 
 		   HttpHeaders responseHeaders = new HttpHeaders();
 		   responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		
 		   return new ResponseEntity<String>(message, responseHeaders, HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value="/deleteCartGoods.do" , method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteCartGoods(@RequestParam("id") int goodsId) throws Exception {
+		cartService.deleteCartGoods(goodsId);
+		return "success";
+		
+
 	}
 	
 }

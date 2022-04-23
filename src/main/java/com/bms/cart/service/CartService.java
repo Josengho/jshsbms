@@ -10,6 +10,9 @@ public interface CartService {
 	
 	public Map<String, List> selectCartList(String memberId) throws Exception;
 	
-	public void addGoodsInCart(CartDto cartDto) throws Exception;
+	public boolean addGoodsInCart(CartDto cartDto) throws Exception;
+
+	public void deleteCartGoods(int goodsId) throws Exception;
+	
 
 }

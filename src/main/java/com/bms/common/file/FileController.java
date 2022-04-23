@@ -25,11 +25,11 @@ import net.coobird.thumbnailator.Thumbnails;
 @Controller
 public class FileController {
 	
-	//private static final String CURR_IMAGE_REPO_PATH = "C:\\file_repo";
-	//String seperatorPath = "\\";	// window
+	private static final String CURR_IMAGE_REPO_PATH = "C:\\file_repo";
+	String seperatorPath = "\\";	// window
 
-	private static final String CURR_IMAGE_REPO_PATH = "/var/lib/tomcat8/file_repo";
-	String seperatorPath = "/";		// linux
+	//private static final String CURR_IMAGE_REPO_PATH = "/var/lib/tomcat8/file_repo";
+	//String seperatorPath = "/";		// linux
 	
 	
 	@RequestMapping("/download")
@@ -78,34 +78,55 @@ public class FileController {
 		
 		List<ImageFileDto> fileList= new ArrayList<ImageFileDto>();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
-		
-		while (fileNames.hasNext()) {
-			
-			ImageFileDto imageFileDto = new ImageFileDto();						
-			
-			String fileName = fileNames.next();							
-			imageFileDto.setFileType(fileName);							
-			
-			MultipartFile mFile = multipartRequest.getFile(fileName); 	
-			
-			String originalFileName = mFile.getOriginalFilename();
+		if(fileNames.hasNext() == false) {
+			ImageFileDto imageFileDto = new ImageFileDto();
+			String fileName = "main_image";
+
+			imageFileDto.setFileType(fileName);
+			MultipartFile mFile = multipartRequest.getFile(fileName);
+
+			String originalFileName = "defaultImage.jpg";
+
 			imageFileDto.setFileName(originalFileName);					
 			
-			fileList.add(imageFileDto);			
-			
-				
-			File file = new File(CURR_IMAGE_REPO_PATH + "/" + fileName);	
-			if (mFile.getSize() != 0) { 									
+			fileList.add(imageFileDto);		
+			File file = new File(CURR_IMAGE_REPO_PATH + "/" + fileName);										
 				if (!file.exists()) {										
 					if (file.getParentFile().mkdirs()){ 					
 						file.createNewFile(); 								
 					}
 				}
-				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH  + seperatorPath + "temp" + seperatorPath + originalFileName)); 
-			}
+		} else {
+			while (fileNames.hasNext()) {
+				
+				ImageFileDto imageFileDto = new ImageFileDto();						
+				
+				String fileName = fileNames.next();		
+				imageFileDto.setFileType(fileName);							
+				
+				MultipartFile mFile = multipartRequest.getFile(fileName); 	
+
+				
+				String originalFileName = mFile.getOriginalFilename();
+				imageFileDto.setFileName(originalFileName);					
+				
+				fileList.add(imageFileDto);			
+				
+					
+				File file = new File(CURR_IMAGE_REPO_PATH + "/" + fileName);	
+				if (mFile.getSize() != 0) { 									
+					if (!file.exists()) {										
+						if (file.getParentFile().mkdirs()){ 					
+							file.createNewFile(); 								
+						}
+					}
+					mFile.transferTo(new File(CURR_IMAGE_REPO_PATH  + seperatorPath + "temp" + seperatorPath + originalFileName)); 
+				}
+				
 			
-		
+			}
 		}
+
 		
 		return fileList;
 		

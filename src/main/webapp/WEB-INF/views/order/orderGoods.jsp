@@ -105,6 +105,7 @@
 </script>
 </head>
 <body>
+<c:set value="${goodsInfo}" var="goodsInfo"/>
 	<h1>1.상품정보</h1>
 <form  name="form_order">	
 	<table class="list_view">
@@ -130,8 +131,8 @@
 					  </h2>
 					</td>
 					<td>
-					  <h2>${goodsInfo.orderGoodsQty }개</h2>
-					    <input type="hidden" id="orderGoodsQty" name="orderGoodsQty" value="${goodsInfo.orderGoodsQty}" />
+					  <h2>${orderGoodsQty.getCartQty }개</h2>
+					    <input type="hidden" id="orderGoodsQty" name="orderGoodsQty" value="${orderGoodsQty.getCartQty}" />
 					</td>
 					<td><h2>${goodsInfo.goodsSalesPrice}원 (10% 할인)</h2></td>
 					<td><h2>${goodsInfo.goodsDeliveryPrice}원 </h2></td>

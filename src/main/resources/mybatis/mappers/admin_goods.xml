@@ -87,6 +87,7 @@
 		)
 	</insert> 
 	
+	
 	<!-- 상품 검색 -->
 	<select id="selectNewGoodsList" resultType="GoodsDto" parameterType="hashmap"  >
 		SELECT 

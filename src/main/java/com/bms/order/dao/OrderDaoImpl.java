@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bms.goods.dto.GoodsDto;
 import com.bms.order.dto.OrderDto;
 
 @Repository
@@ -20,12 +21,16 @@ public class OrderDaoImpl implements OrderDao {
 	}
 	
 	public void insertNewOrder(OrderDto orderDto) throws Exception{
-		System.out.println(orderDto);
+
 		sqlSession.insert("mapper.order.insertNewOrder" , orderDto);
 	}	
 	
 	public OrderDto findMyOrder(String orderId) throws Exception{
 		return sqlSession.selectOne("mapper.order.selectMyOrder" , orderId);
+	}
+	
+	public List<GoodsDto> orderList(int goodsId) throws Exception{
+		return sqlSession.selectList("mapper.order.orderList" , goodsId);
 	}
 	
 }

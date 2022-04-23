@@ -63,4 +63,13 @@
            		PAY_ORDER_TIME DESC
 	</select>
 	
+	<select id="orderList" resultType="goodsDto" parameterType="int"  >
+	    SELECT 
+	    		* 
+	    FROM 
+	    		T_SHOPPING_GOODS
+        WHERE 
+           		GOODS_ID = #{goodsId}
+	</select>
+	
 </mapper>

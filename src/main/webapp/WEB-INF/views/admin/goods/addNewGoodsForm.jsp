@@ -20,13 +20,12 @@
 	function fn_add_new_goods(obj){
 		 
 		fileName = $('#f_main_image').val();
-		 
+
 		if (fileName != null && fileName != undefined){
 			 obj.submit();
 		}
 		else {
-			 alert("메인 이미지는 반드시 첨부해야 합니다.");
-			 return;
+			 obj.submit();
 		 }
 		 
 	}
@@ -175,5 +174,6 @@
 			</div>
 		</div>
 	</form>	
+	
 </body>
  

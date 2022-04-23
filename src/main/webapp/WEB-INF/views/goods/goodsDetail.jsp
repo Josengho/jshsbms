@@ -74,7 +74,7 @@
 	    i_fileName.value             = fileName;
 	    i_goods_delivery_price.value = goodsDeliveryPrice;
 	    
-	    // var formObj = document.createElement("form") ==> formObj라는 form에 밑의 값을 넣어줌
+	    // formObj이라는 노드에 input 타입의 자식 노드를 생성해줌.
 	    formObj.appendChild(i_goods_id);
 	    formObj.appendChild(i_goods_title);
 	    formObj.appendChild(i_goods_sales_price);
@@ -82,7 +82,7 @@
 	    formObj.appendChild(i_order_goods_qty);
 	    formObj.appendChild(i_goods_delivery_price);
 	
-	    // html body에 formObj를 추가해서 넣어줌. method = "post",   action = "${contextPath}/order/orderEachGoods.do", submit()
+	    // html body에 formObj를 추가해서 넣어줌. formObj 안에는 input 타입의 자식노드들이 존재함.
 	    document.body.appendChild(formObj); 
 	    formObj.method = "post";
 	    formObj.action = "${contextPath}/order/orderEachGoods.do";

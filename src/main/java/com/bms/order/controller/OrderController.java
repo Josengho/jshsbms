@@ -1,6 +1,9 @@
 package com.bms.order.controller;
 
+
+import java.util.List;
 import java.util.Map;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,15 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bms.cart.dto.CartDto;
+import com.bms.goods.dto.GoodsDto;
+import com.bms.goods.dto.ImageFileDto;
 import com.bms.member.dto.MemberDto;
 import com.bms.order.dto.OrderDto;
 import com.bms.order.service.OrderService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/order")
@@ -29,6 +35,10 @@ public class OrderController {
 	@RequestMapping(value="/orderEachGoods.do" , method = RequestMethod.POST)
 	public ModelAndView orderEachGoods(@RequestParam Map<String, Object> goodsInfo, HttpServletRequest request) throws Exception{
 		
+		//ObjectMapper mapper = new ObjectMapper();
+		//CartDto cDto = mapper.convertValue(goodsInfo ,CartDto.class);
+		//ImageFileDto imageDto = mapper.convertValue(goodsInfo ,ImageFileDto.class);
+		
 		ModelAndView mv = new ModelAndView();  			
 		mv.setViewName("/order/orderEachGoods");
 		
@@ -36,6 +46,11 @@ public class OrderController {
 		HttpSession session = request.getSession();
 		
 		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
+		
+		
+		//List<GoodsDto> gDto = orderService.orderList(cDto.getGoodsId());
+		
+		//mv.addObject("goodsList", orderService.orderList(cDto.getGoodsId()));
 		
 		session.setAttribute("goodsInfo", goodsInfo);
 		session.setAttribute("orderer", memberInfo);

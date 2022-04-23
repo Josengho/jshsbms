@@ -29,7 +29,7 @@
 	   ]]>      
   </insert>
   
-  <select id="goodsIdList" resultType="CartDto">
+  <select id="goodsIdList" resultType="cartDto">
 	SELECT 
 			*
 	FROM
@@ -50,5 +50,33 @@
 		</foreach>
 		ORDER BY GOODS_CREDATE DESC
   </select>
+  
+    <select id="goodsImageInfoList" resultType="ImageFileDto">
+		SELECT 
+				*
+		FROM
+				T_GOODS_DETAIL_IMAGE
+		WHERE
+				GOODS_ID IN
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item.goodsId}
+		</foreach>
+  </select>
+  
+  <select id="overlapGoodsChk" parameterType="CartDto" resultType="int">
+	SELECT 
+			GOODS_ID
+	FROM
+			T_SHOPPING_CART 
+	WHERE
+			MEMBER_ID = #{memberId} AND GOODS_ID = #{goodsId}
+  </select>
+  
+  <delete id="deleteCartGoods" parameterType="int">
+  	DELETE	FROM
+  			T_SHOPPING_CART
+  	WHERE
+  			GOODS_ID = #{goodsId}
+  </delete>
 	
 </mapper>

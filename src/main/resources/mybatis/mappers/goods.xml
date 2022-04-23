@@ -50,12 +50,14 @@
    				G.GOODS_RECOMMENDATION 		AS GOODS_RECOMMENDATION,
    				G.GOODS_CREDATE 			AS GOODS_CREDATE,
    				D.FILE_NAME					AS FILE_NAME 
+   				
    		FROM 
    				T_SHOPPING_GOODS G 
    					  INNER JOIN T_GOODS_DETAIL_IMAGE D
   							  ON G.GOODS_ID = D.GOODS_ID 
   							 AND D.FILE_TYPE = 'main_image' 
   							 AND G.GOODS_STATUS = #{goodsStatus}
+  							 
        	ORDER BY 
           			G.GOODS_CREDATE DESC
 
@@ -135,5 +137,6 @@
 	    ORDER BY 
 	    		G.GOODS_CREDATE DESC
 	</select>	
+	
 	
 </mapper>

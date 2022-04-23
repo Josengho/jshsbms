@@ -2,6 +2,7 @@ package com.bms.admin.goods.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -44,11 +45,11 @@ import com.bms.goods.dto.ImageFileDto;
 @RequestMapping("/admin/goods")
 public class AdminGoodsController {
 	
-	//private static final String CURR_IMAGE_REPO_PATH = "C:\\file_repo";
-	//String seperatorPath = "\\";	// window
+	private static final String CURR_IMAGE_REPO_PATH = "C:\\file_repo";
+	String seperatorPath = "\\";	// window
 
-	private static final String CURR_IMAGE_REPO_PATH = "/var/lib/tomcat8/file_repo";
-	String seperatorPath = "/";		// linux
+	//private static final String CURR_IMAGE_REPO_PATH = "/var/lib/tomcat8/file_repo";
+	//String seperatorPath = "/";		// linux
 	
 	@Autowired
 	private AdminGoodsService adminGoodsService;
@@ -124,15 +125,16 @@ public class AdminGoodsController {
 		response.setContentType("text/html; charset=UTF-8");
 
 		Map<String,Object> newGoodsMap = new HashMap<String,Object>(); 
-		
+
 		Enumeration<?> multi = multipartRequest.getParameterNames();	
 		while (multi.hasMoreElements()){
-			String name  = (String)multi.nextElement();					
-			String value = multipartRequest.getParameter(name);			
+			String name  = (String)multi.nextElement();	
+			String value = multipartRequest.getParameter(name);		
 			newGoodsMap.put(name,value);								
 		}
-		
+
 		List<ImageFileDto> imageFileList = fileController.upload(multipartRequest);
+		String isDefault = imageFileList.get(0).getFileName();
 		newGoodsMap.put("imageFileList", imageFileList); 
 		
 		int goodsId = adminGoodsService.addNewGoods(newGoodsMap);
@@ -140,8 +142,12 @@ public class AdminGoodsController {
 		if (imageFileList != null && imageFileList.size() != 0) { 
 			for (ImageFileDto  imageFileDto : imageFileList) {    
 				File srcFile = new File(CURR_IMAGE_REPO_PATH + seperatorPath + "temp" + seperatorPath + imageFileDto.getFileName());
-				File destDir = new File(CURR_IMAGE_REPO_PATH + seperatorPath + goodsId);								
-				FileUtils.moveFileToDirectory(srcFile, destDir, true);
+				File destDir = new File(CURR_IMAGE_REPO_PATH + seperatorPath + goodsId);	
+				if(isDefault.equals("defaultImage.jpg")) {
+					FileUtils.copyFile(srcFile, destDir);
+				} else {
+					FileUtils.moveFileToDirectory(srcFile, destDir, true);
+				}
 			}
 		}
 		

@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bms.goods.dto.GoodsDto;
 import com.bms.order.dao.OrderDao;
 import com.bms.order.dto.OrderDto;
 
@@ -29,6 +29,10 @@ public class OrderServiceImpl implements OrderService {
 	
 	public OrderDto findMyOrder(String orderId) throws Exception{
 		return orderDao.findMyOrder(orderId);
+	}
+	
+	public List<GoodsDto> orderList(int goodsId) throws Exception{
+		return orderDao.orderList(goodsId);
 	}
 
 }
